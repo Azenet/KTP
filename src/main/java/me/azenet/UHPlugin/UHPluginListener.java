@@ -3,7 +3,6 @@ package me.azenet.UHPlugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -50,9 +49,8 @@ public class UHPluginListener implements Listener {
 	@EventHandler
 	public void onPlayerDeath(final PlayerDeathEvent ev) {
 		Location l = ev.getEntity().getLocation();
-		Player[] ps = Bukkit.getServer().getOnlinePlayers();
-		for (Player pp : ps) {
-			pp.playSound(pp.getLocation(), Sound.WITHER_SPAWN, 1F, 1F);
+		for (Player ps : Bukkit.getOnlinePlayers()) {
+			ps.playSound(ps.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1F, 1F);
 		}
 		this.p.addDead(ev.getEntity().getName());
 		Bukkit.getScheduler().runTaskLater(this.p, new BukkitRunnable() {
@@ -269,10 +267,10 @@ public class UHPluginListener implements Listener {
 			}
 			if (!foundRottenFlesh) {
 				pl.sendMessage(ChatColor.GRAY+""+ChatColor.ITALIC+"Vous n'avez pas de chair de zombie.");
-				pl.playSound(pl.getLocation(), Sound.STEP_WOOD, 1F, 1F);
+				pl.playSound(pl.getLocation(), Sound.BLOCK_WOOD_STEP, 1F, 1F);
 				return;
 			}
-			pl.playSound(pl.getLocation(), Sound.BURP, 1F, 1F);
+			pl.playSound(pl.getLocation(), Sound.ENTITY_PLAYER_BURP, 1F, 1F);
 			Player nearest = null;
 			Double distance = 99999D;
 			for (Player pl2 : p.getServer().getOnlinePlayers()) {
