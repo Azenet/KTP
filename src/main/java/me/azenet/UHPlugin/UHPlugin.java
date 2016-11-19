@@ -1,24 +1,6 @@
 package me.azenet.UHPlugin;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.logging.Logger;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Difficulty;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.conversations.ConversationAbandonedEvent;
@@ -35,6 +17,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
+import java.util.logging.Logger;
 
 public final class UHPlugin extends JavaPlugin implements ConversationAbandonedListener {
 
@@ -154,7 +143,7 @@ public final class UHPlugin extends JavaPlugin implements ConversationAbandonedL
 		obj.setDisplayName(this.getScoreboardName());
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GRAY+"Episode "+ChatColor.WHITE+episode)).setScore(5);
-		obj.getScore(Bukkit.getOfflinePlayer(ChatColor.WHITE+""+Bukkit.getServer().getOnlinePlayers().length+ChatColor.GRAY+" joueurs")).setScore(4);
+		obj.getScore(Bukkit.getOfflinePlayer(ChatColor.WHITE+""+Bukkit.getServer().getOnlinePlayers().size()+ChatColor.GRAY+" joueurs")).setScore(4);
 		obj.getScore(Bukkit.getOfflinePlayer(ChatColor.WHITE+""+getAliveTeams().size()+ChatColor.GRAY+" teams")).setScore(3);
 		obj.getScore(Bukkit.getOfflinePlayer("")).setScore(2);
 		obj.getScore(Bukkit.getOfflinePlayer(ChatColor.WHITE+formatter.format(this.minutesLeft)+ChatColor.GRAY+":"+ChatColor.WHITE+formatter.format(this.secondsLeft))).setScore(1);
@@ -237,7 +226,7 @@ public final class UHPlugin extends JavaPlugin implements ConversationAbandonedL
 						damageIsOn = true;
 					}
 				}, 600L);
-				World w = Bukkit.getOnlinePlayers()[0].getWorld();
+				World w = Bukkit.getWorlds().get(0);
 				w.setGameRuleValue("doDaylightCycle", ((Boolean)getConfig().getBoolean("daylightCycle.do")).toString());
 				w.setTime(getConfig().getLong("daylightCycle.time"));
 				w.setStorm(false);
